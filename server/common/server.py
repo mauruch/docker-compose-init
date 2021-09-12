@@ -1,5 +1,6 @@
 import socket
 import logging
+import sys
 
 
 class Server:
@@ -35,7 +36,7 @@ class Server:
             msg = client_sock.recv(1024).rstrip().decode('utf-8')
             logging.info(
                 'Message received from connection {}. Msg: {}'
-                .format(client_sock.getpeername(), msg))
+                    .format(client_sock.getpeername(), msg))
             client_sock.send("Your Message has been received: {}\n".format(msg).encode('utf-8'))
         except OSError:
             logging.info("Error while reading socket {}".format(client_sock))
@@ -55,3 +56,10 @@ class Server:
         c, addr = self._server_socket.accept()
         logging.info('Got connection from {}'.format(addr))
         return c
+
+    def signal_handler(self, signal, frame):
+        logging.info("SIGNAL {} received. Cleaning resources...".format(signal))
+        logging.info("Shutting down and closing server {}".format(self._server_socket.getsockname()))
+        self._server_socket.shutdown(socket.SHUT_RDWR)
+        self._server_socket.close()
+        sys.exit(0)
