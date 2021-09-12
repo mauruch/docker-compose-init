@@ -15,7 +15,7 @@ services:
       - shared_dir:/configuration
 
   client1:
-    container_name: client1d
+    container_name: client1
     image: client:latest
     entrypoint: /client
     environment:

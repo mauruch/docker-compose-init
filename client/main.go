@@ -43,7 +43,6 @@ func InitConfig() (*viper.Viper, error) {
 
 	v.AddConfigPath("./configuration")
 	v.SetConfigName("config")
-	//v.SetConfigFile("./config.yaml")
 	if err := v.ReadInConfig(); err != nil {
 		fmt.Printf("Configuration could not be read from config file. Using env variables instead")
 	}
