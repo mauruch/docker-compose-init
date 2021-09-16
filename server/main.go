@@ -8,14 +8,12 @@ import (
 	"os"
 )
 
-const (
-	connHost = "server"
-	connPort = "12345"
-)
-
 func main() {
-	address := fmt.Sprintf("%s:%s", connHost, connPort)
-	fmt.Printf("Starting TCP server on %s", address)
+	port := os.Getenv("SERVER_PORT")
+	host := os.Getenv("HOST")
+
+	address := fmt.Sprintf("%s:%s", host, port)
+	fmt.Printf("Starting TCP server on %s \n", address)
 
 	l, err := net.Listen("tcp", address)
 	if err != nil {

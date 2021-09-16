@@ -4,6 +4,9 @@ services:
     container_name: server
     image: server:latest
     entrypoint: /server
+    environment:
+      - HOST=server
+      - SERVER_PORT=12345
     networks:
       - testing_net
 
